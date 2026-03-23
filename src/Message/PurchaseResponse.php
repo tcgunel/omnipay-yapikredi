@@ -11,28 +11,28 @@ use Omnipay\Yapikredi\Models\PurchaseResponseModel;
  */
 class PurchaseResponse extends RemoteAbstractResponse
 {
-	public function isSuccessful(): bool
-	{
-		return $this->getData()->approved === '1';
-	}
+    public function isSuccessful(): bool
+    {
+        return $this->getData()->approved === '1';
+    }
 
-	public function getMessage(): ?string
-	{
-		return $this->getData()->respText;
-	}
+    public function getMessage(): ?string
+    {
+        return $this->getData()->respText;
+    }
 
-	public function getCode(): ?string
-	{
-		return $this->getData()->respCode;
-	}
+    public function getCode(): ?string
+    {
+        return $this->getData()->respCode;
+    }
 
-	public function getTransactionReference(): ?string
-	{
-		return $this->getData()->hostlogkey;
-	}
+    public function getTransactionReference(): ?string
+    {
+        return $this->getData()->hostlogkey;
+    }
 
-	public function getData(): PurchaseResponseModel
-	{
-		return $this->response;
-	}
+    public function getData(): PurchaseResponseModel
+    {
+        return $this->response;
+    }
 }

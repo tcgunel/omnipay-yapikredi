@@ -16,80 +16,80 @@ use Omnipay\Yapikredi\Models\EnrolmentResponseModel;
  */
 class EnrolmentResponse extends AbstractResponse implements RedirectResponseInterface
 {
-	protected EnrolmentResponseModel $model;
+    protected EnrolmentResponseModel $model;
 
-	protected EnrolmentRequestModel $requestData;
+    protected EnrolmentRequestModel $requestData;
 
-	protected string $mac;
+    protected string $mac;
 
-	public function __construct(RequestInterface $request, $data)
-	{
-		parent::__construct($request, $data);
+    public function __construct(RequestInterface $request, $data)
+    {
+        parent::__construct($request, $data);
 
-		$this->model = $data['model'];
-		$this->requestData = $data['requestData'];
-		$this->mac = $data['mac'];
-	}
+        $this->model = $data['model'];
+        $this->requestData = $data['requestData'];
+        $this->mac = $data['mac'];
+    }
 
-	public function isSuccessful(): bool
-	{
-		return false;
-	}
+    public function isSuccessful(): bool
+    {
+        return false;
+    }
 
-	public function isRedirect(): bool
-	{
-		return $this->model->approved === '1';
-	}
+    public function isRedirect(): bool
+    {
+        return $this->model->approved === '1';
+    }
 
-	public function getRedirectUrl()
-	{
-		/** @var EnrolmentRequest $request */
-		$request = $this->getRequest();
+    public function getRedirectUrl()
+    {
+        /** @var EnrolmentRequest $request */
+        $request = $this->getRequest();
 
-		return $request->get3DEndpoint();
-	}
+        return $request->get3DEndpoint();
+    }
 
-	public function getRedirectMethod(): string
-	{
-		return 'POST';
-	}
+    public function getRedirectMethod(): string
+    {
+        return 'POST';
+    }
 
-	public function getRedirectData(): array
-	{
-		return [
-			'mid'               => $this->requestData->mid,
-			'posnetID'          => $this->requestData->posnetId,
-			'posnetData'        => $this->model->data1,
-			'posnetData2'       => $this->model->data2,
-			'digest'            => $this->model->sign,
-			'merchantReturnURL' => $this->requestData->merchantReturnURL,
-			'url'               => '',
-			'lang'              => 'tr',
-		];
-	}
+    public function getRedirectData(): array
+    {
+        return [
+            'mid' => $this->requestData->mid,
+            'posnetID' => $this->requestData->posnetId,
+            'posnetData' => $this->model->data1,
+            'posnetData2' => $this->model->data2,
+            'digest' => $this->model->sign,
+            'merchantReturnURL' => $this->requestData->merchantReturnURL,
+            'url' => '',
+            'lang' => 'tr',
+        ];
+    }
 
-	public function getMessage(): ?string
-	{
-		return $this->model->respText;
-	}
+    public function getMessage(): ?string
+    {
+        return $this->model->respText;
+    }
 
-	public function getCode(): ?string
-	{
-		return $this->model->respCode;
-	}
+    public function getCode(): ?string
+    {
+        return $this->model->respCode;
+    }
 
-	public function getData(): EnrolmentResponseModel
-	{
-		return $this->model;
-	}
+    public function getData(): EnrolmentResponseModel
+    {
+        return $this->model;
+    }
 
-	public function getRedirectResponse()
-	{
-		$response = parent::getRedirectResponse();
+    public function getRedirectResponse()
+    {
+        $response = parent::getRedirectResponse();
 
-		$response->setContent(str_replace("<body", "<body style='color:#FFF'", $response->getContent()));
+        $response->setContent(str_replace('<body', "<body style='color:#FFF'", $response->getContent()));
 
-		$script = '<script>
+        $script = '<script>
 			document.forms[0].style.display = "none";
 	        document.getElementsByTagName("section")[0].style.display = "block";
 
@@ -100,16 +100,16 @@ class EnrolmentResponse extends AbstractResponse implements RedirectResponseInte
 			}, 5000);
 		</script>';
 
-		$response->setContent(str_replace("</body>", $this->redirectSpinner() . "</body>", $response->getContent()));
+        $response->setContent(str_replace('</body>', $this->redirectSpinner() . '</body>', $response->getContent()));
 
-		$response->setContent(str_replace("</body>", "$script</body>", $response->getContent()));
+        $response->setContent(str_replace('</body>', "$script</body>", $response->getContent()));
 
-		return $response;
-	}
+        return $response;
+    }
 
-	protected function redirectSpinner(): string
-	{
-		$css = '<style>
+    protected function redirectSpinner(): string
+    {
+        $css = '<style>
 					section {
 					  width: 174px;
 					  margin: 0 auto;
@@ -157,7 +157,7 @@ class EnrolmentResponse extends AbstractResponse implements RedirectResponseInte
 					}
 		</style>';
 
-		$html = '<section>
+        $html = '<section>
 		  <svg class="spinner" width="174px" height="174px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
 		     <circle class="path" fill="transparent" stroke-width="2" cx="33" cy="33" r="30" stroke="url(#gradient)"/>
 		       <linearGradient id="gradient">
@@ -173,6 +173,6 @@ class EnrolmentResponse extends AbstractResponse implements RedirectResponseInte
 		  </svg>
 		</section>';
 
-		return $css . $html;
-	}
+        return $css . $html;
+    }
 }

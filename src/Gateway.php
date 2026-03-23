@@ -28,46 +28,46 @@ use Omnipay\Yapikredi\Traits\PurchaseGettersSetters;
  */
 class Gateway extends AbstractGateway
 {
-	use PurchaseGettersSetters;
+    use PurchaseGettersSetters;
 
-	public function getName(): string
-	{
-		return 'Yapikredi';
-	}
+    public function getName(): string
+    {
+        return 'Yapikredi';
+    }
 
-	public function getDefaultParameters()
-	{
-		return [
-			'merchantId'  => '',
-			'terminalId'  => '',
-			'posnetId'    => '',
-			'storeKey'    => '',
-			'installment' => 1,
-			'testMode'    => false,
-		];
-	}
+    public function getDefaultParameters()
+    {
+        return [
+            'merchantId' => '',
+            'terminalId' => '',
+            'posnetId' => '',
+            'storeKey' => '',
+            'installment' => 1,
+            'testMode' => false,
+        ];
+    }
 
-	/**
-	 * Non-3D direct sale.
-	 */
-	public function purchase(array $options = [])
-	{
-		return $this->createRequest(PurchaseRequest::class, $options);
-	}
+    /**
+     * Non-3D direct sale.
+     */
+    public function purchase(array $options = [])
+    {
+        return $this->createRequest(PurchaseRequest::class, $options);
+    }
 
-	/**
-	 * 3D Secure enrolment (step 1: oosRequestData + redirect form).
-	 */
-	public function enrolment(array $options = [])
-	{
-		return $this->createRequest(EnrolmentRequest::class, $options);
-	}
+    /**
+     * 3D Secure enrolment (step 1: oosRequestData + redirect form).
+     */
+    public function enrolment(array $options = [])
+    {
+        return $this->createRequest(EnrolmentRequest::class, $options);
+    }
 
-	/**
-	 * 3D Secure completion (steps: oosResolveMerchantData + oosTranData).
-	 */
-	public function completePurchase(array $options = [])
-	{
-		return $this->createRequest(CompletePurchaseRequest::class, $options);
-	}
+    /**
+     * 3D Secure completion (steps: oosResolveMerchantData + oosTranData).
+     */
+    public function completePurchase(array $options = [])
+    {
+        return $this->createRequest(CompletePurchaseRequest::class, $options);
+    }
 }

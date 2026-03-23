@@ -9,32 +9,32 @@ use Omnipay\Yapikredi\Models\CompletePurchaseResponseModel;
  */
 class CompletePurchaseResponse extends RemoteAbstractResponse
 {
-	public function isSuccessful(): bool
-	{
-		return $this->getData()->approved === '1' && $this->getData()->mdStatus === '1';
-	}
+    public function isSuccessful(): bool
+    {
+        return $this->getData()->approved === '1' && $this->getData()->mdStatus === '1';
+    }
 
-	public function getMessage(): ?string
-	{
-		if ($this->getData()->respText) {
-			return $this->getData()->respText;
-		}
+    public function getMessage(): ?string
+    {
+        if ($this->getData()->respText) {
+            return $this->getData()->respText;
+        }
 
-		return $this->getData()->mdErrorMessage;
-	}
+        return $this->getData()->mdErrorMessage;
+    }
 
-	public function getCode(): ?string
-	{
-		return $this->getData()->respCode;
-	}
+    public function getCode(): ?string
+    {
+        return $this->getData()->respCode;
+    }
 
-	public function getTransactionReference(): ?string
-	{
-		return $this->getData()->hostlogkey;
-	}
+    public function getTransactionReference(): ?string
+    {
+        return $this->getData()->hostlogkey;
+    }
 
-	public function getData(): CompletePurchaseResponseModel
-	{
-		return $this->response;
-	}
+    public function getData(): CompletePurchaseResponseModel
+    {
+        return $this->response;
+    }
 }

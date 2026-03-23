@@ -4,26 +4,26 @@ namespace Omnipay\Yapikredi\Models;
 
 abstract class BaseModel
 {
-	public function __construct(?array $abstract)
-	{
-		if ($abstract === null) {
-			return;
-		}
+    public function __construct(?array $abstract)
+    {
+        if ($abstract === null) {
+            return;
+        }
 
-		foreach ($abstract as $key => $arg) {
+        foreach ($abstract as $key => $arg) {
 
-			if (property_exists($this, $key)) {
+            if (property_exists($this, $key)) {
 
-				if (is_string($arg)) {
+                if (is_string($arg)) {
 
-					$arg = trim($arg);
+                    $arg = trim($arg);
 
-				}
+                }
 
-				$this->$key = $arg;
+                $this->$key = $arg;
 
-			}
+            }
 
-		}
-	}
+        }
+    }
 }

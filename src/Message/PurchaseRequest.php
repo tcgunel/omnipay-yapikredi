@@ -16,76 +16,76 @@ use Omnipay\Yapikredi\Models\PurchaseResponseModel;
  */
 class PurchaseRequest extends RemoteAbstractRequest
 {
-	protected $endpoint;
+    protected $endpoint;
 
-	/**
-	 * @throws InvalidRequestException
-	 * @throws InvalidCreditCardException
-	 */
-	public function getData()
-	{
-		$this->validateAll();
+    /**
+     * @throws InvalidRequestException
+     * @throws InvalidCreditCardException
+     */
+    public function getData()
+    {
+        $this->validateAll();
 
-		return new PurchaseRequestModel([
-			'mid'          => $this->getMerchantId(),
-			'tid'          => $this->getTerminalId(),
-			'amount'       => Helper::formatAmount($this->getAmountInteger()),
-			'ccno'         => $this->get_card('getNumber'),
-			'currencyCode' => Currency::mapCurrency($this->getCurrency()),
-			'cvc'          => $this->get_card('getCvv'),
-			'expDate'      => Helper::formatExpiryDate(
-				$this->get_card('getExpiryYear'),
-				$this->get_card('getExpiryMonth')
-			),
-			'orderID'      => Helper::padOrderId($this->getTransactionId()),
-			'installment'  => Helper::formatInstallment($this->getInstallment()),
-		]);
-	}
+        return new PurchaseRequestModel([
+            'mid' => $this->getMerchantId(),
+            'tid' => $this->getTerminalId(),
+            'amount' => Helper::formatAmount($this->getAmountInteger()),
+            'ccno' => $this->get_card('getNumber'),
+            'currencyCode' => Currency::mapCurrency($this->getCurrency()),
+            'cvc' => $this->get_card('getCvv'),
+            'expDate' => Helper::formatExpiryDate(
+                $this->get_card('getExpiryYear'),
+                $this->get_card('getExpiryMonth')
+            ),
+            'orderID' => Helper::padOrderId($this->getTransactionId()),
+            'installment' => Helper::formatInstallment($this->getInstallment()),
+        ]);
+    }
 
-	/**
-	 * @throws InvalidRequestException
-	 * @throws InvalidCreditCardException
-	 */
-	protected function validateAll(): void
-	{
-		$this->validateSettings();
+    /**
+     * @throws InvalidRequestException
+     * @throws InvalidCreditCardException
+     */
+    protected function validateAll(): void
+    {
+        $this->validateSettings();
 
-		$this->getCard()->validate();
+        $this->getCard()->validate();
 
-		$this->validate(
-			'amount',
-			'transactionId',
-		);
-	}
+        $this->validate(
+            'amount',
+            'transactionId',
+        );
+    }
 
-	/**
-	 * @param PurchaseRequestModel $data
-	 * @return PurchaseResponse
-	 */
-	public function sendData($data)
-	{
-		$xmlData = Helper::buildXml($data->mid, $data->tid, $data->toXmlArray());
+    /**
+     * @param PurchaseRequestModel $data
+     * @return PurchaseResponse
+     */
+    public function sendData($data)
+    {
+        $xmlData = Helper::buildXml($data->mid, $data->tid, $data->toXmlArray());
 
-		$responseBody = $this->postXmlData($xmlData);
+        $responseBody = $this->postXmlData($xmlData);
 
-		return $this->createResponse($responseBody);
-	}
+        return $this->createResponse($responseBody);
+    }
 
-	protected function createResponse($data): PurchaseResponse
-	{
-		$xml = Helper::parseXml($data);
+    protected function createResponse($data): PurchaseResponse
+    {
+        $xml = Helper::parseXml($data);
 
-		$model = new PurchaseResponseModel([
-			'approved'   => (string) ($xml->approved ?? '0'),
-			'respCode'   => (string) ($xml->respCode ?? null),
-			'respText'   => (string) ($xml->respText ?? null),
-			'hostlogkey' => (string) ($xml->hostlogkey ?? null),
-			'authCode'   => (string) ($xml->authCode ?? null),
-			'tranDate'   => (string) ($xml->tranDate ?? null),
-		]);
+        $model = new PurchaseResponseModel([
+            'approved' => (string) ($xml->approved ?? '0'),
+            'respCode' => (string) ($xml->respCode ?? null),
+            'respText' => (string) ($xml->respText ?? null),
+            'hostlogkey' => (string) ($xml->hostlogkey ?? null),
+            'authCode' => (string) ($xml->authCode ?? null),
+            'tranDate' => (string) ($xml->tranDate ?? null),
+        ]);
 
-		$model->originalResponse = $data;
+        $model->originalResponse = $data;
 
-		return $this->response = new PurchaseResponse($this, $model);
-	}
+        return $this->response = new PurchaseResponse($this, $model);
+    }
 }
