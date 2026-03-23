@@ -1,0 +1,14 @@
+{
+  "merchantId": "6706598320",
+  "terminalId": "67005551",
+  "posnetId": "1010028724",
+  "storeKey": "10,10,10,10,10,10,10,10",
+  "testMode": true,
+
+  "transactionId": "YKB0000000000001",
+  "amount": 1.50,
+  "currency": "TRY",
+  "bankPacket": "BANKPACKETDATA123456789",
+  "merchantPacket": "MERCHANTPACKETDATA123456789",
+  "sign": "SIGNDATA123456789"
+}

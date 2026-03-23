@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: application/xml; charset=ISO-8859-9
+Content-Length: 350
+
+<?xml version="1.0" encoding="ISO-8859-9"?>
+<posnetResponse>
+<approved>1</approved>
+<respCode></respCode>
+<respText></respText>
+<oosResolveMerchantDataResponse>
+<xid>00000000YKB0000000000001</xid>
+<amount>150</amount>
+<currency>TL</currency>
+<installment>00</installment>
+<point>0</point>
+<mdStatus>0</mdStatus>
+<mdErrorMessage>3D dogrulama basarisiz</mdErrorMessage>
+<bankData></bankData>
+<merchantData></merchantData>
+</oosResolveMerchantDataResponse>
+</posnetResponse>

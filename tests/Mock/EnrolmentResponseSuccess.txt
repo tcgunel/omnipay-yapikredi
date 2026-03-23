@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: application/xml; charset=ISO-8859-9
+Content-Length: 400
+
+<?xml version="1.0" encoding="ISO-8859-9"?>
+<posnetResponse>
+<approved>1</approved>
+<respCode></respCode>
+<respText></respText>
+<oosRequestDataResponse>
+<data1>AABBCCDD1122334455667788990011AABBCCDD</data1>
+<data2>EEFF00112233445566778899AABBCCDDEEFF00</data2>
+<sign>9998AAA5678901234567890123456789</sign>
+</oosRequestDataResponse>
+</posnetResponse>

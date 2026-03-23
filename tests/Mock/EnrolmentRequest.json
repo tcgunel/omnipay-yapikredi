@@ -1,0 +1,27 @@
+{
+  "merchantId": "6706598320",
+  "terminalId": "67005551",
+  "posnetId": "1010028724",
+  "storeKey": "10,10,10,10,10,10,10,10",
+  "installment": 1,
+  "testMode": true,
+
+  "transactionId": "YKB0000000000001",
+  "amount": 1.50,
+  "currency": "TRY",
+  "returnUrl": "https://example.com/payment/callback",
+  "card": {
+    "firstName": "Example",
+    "lastName": "User",
+    "number": "4506349116608409",
+    "expiryMonth": "03",
+    "expiryYear": "2030",
+    "cvv": "000",
+    "billingAddress1": "123 Billing St",
+    "billingAddress2": "Billsville",
+    "billingCity": "Istanbul",
+    "billingPostcode": "34000",
+    "billingCountry": "TR",
+    "billingPhone": "5554443322"
+  }
+}

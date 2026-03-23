@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: application/xml; charset=ISO-8859-9
+Content-Length: 200
+
+<?xml version="1.0" encoding="ISO-8859-9"?>
+<posnetResponse>
+<approved>0</approved>
+<respCode>0012</respCode>
+<respText>Islem onaylanmadi</respText>
+</posnetResponse>
